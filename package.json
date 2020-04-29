@@ -1,5 +1,5 @@
 {
-  "name": "function-project",
+  "name": "Angular",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -21,8 +21,9 @@
     "@angular/platform-browser-dynamic": "^9.1.2",
     "@angular/router": "^9.1.2",
     "@ngxs/store": "^3.6.2",
+    "angularfire2": "^5.4.2",
     "bootstrap": "^4.4.1",
-    "firebase": "^7.14.1",
+    "firebase": "^7.14.2",
     "firebase-auth": "^0.1.2",
     "rxjs": "^6.5.5",
     "tslib": "^1.10.0",

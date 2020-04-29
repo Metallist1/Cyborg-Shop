@@ -6,10 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./main-view.component.css']
 })
 export class MainViewComponent implements OnInit {
-  Products = ['Windstorm', 'Bombasto', 'Magneta', 'Tornado'];
   constructor() { }
 
   ngOnInit(): void {
   }
-
 }

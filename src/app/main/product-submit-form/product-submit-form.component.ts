@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
-import {ProductState} from '../shared/product-actions/product.state';
+import {ProductState} from '../../shared/product-actions/product.state';
 import {Observable, Subscription} from 'rxjs';
-import {Product} from '../shared/entities/product';
-import {WriteNewProduct, UpdateExistingProduct, SetSelectedProduct} from '../shared/product-actions/product.action';
+import {Product} from '../../shared/entities/product';
+import {WriteNewProduct, UpdateExistingProduct, SetSelectedProduct} from '../../shared/product-actions/product.action';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 @Component({
