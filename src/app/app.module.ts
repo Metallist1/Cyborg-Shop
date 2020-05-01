@@ -18,6 +18,7 @@ import { LoginEmailComponent } from './login/login-email/login-email.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { LoginRegisterComponent } from './login/login-register/login-register.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
     ProductListComponent,
     ProductSubmitFormComponent,
     LoginViewComponent,
-    LoginEmailComponent
+    LoginEmailComponent,
+    LoginRegisterComponent
   ],
   imports: [NgxsModule.forRoot([ProductState, AuthState], {
     developmentMode: !environment.production

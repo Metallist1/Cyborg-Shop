@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
+import {LoginWithEmail} from '../../auth/shared/auth.action';
+import {first} from 'rxjs/operators';
+import {Store} from '@ngxs/store';
 
 @Component({
   selector: 'app-login-email',
@@ -12,14 +15,13 @@ export class LoginEmailComponent implements OnInit {
   loginForm: FormGroup;
   loading = false;
   submitted = false;
-  returnUrl: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {
-    // redirect to home if already logged in
   }
 
   ngOnInit() {
@@ -28,7 +30,6 @@ export class LoginEmailComponent implements OnInit {
       password: ['', Validators.required]
     });
 
-    // get return url from route parameters or default to '/'
   }
 
   // convenience getter for easy access to form fields
@@ -41,7 +42,18 @@ export class LoginEmailComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+    const email = this.loginForm.value.username;
+    const pass = this.loginForm.value.password;
 
     this.loading = true;
+    this.store.dispatch(new LoginWithEmail(email, pass))
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate(['/']);
+        },
+        error => {
+          this.loading = false;
+        });
   }
 }

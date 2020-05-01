@@ -16,48 +16,78 @@ import { switchMap } from 'rxjs/operators';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import * as firebase from 'firebase';
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
+import {Stock} from '../../../../functions/src/models/stock';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<AuUser>;
+
+  usr: AuUser;
 
   constructor(
     private afAuth: AngularFireAuth,
     private afs: AngularFirestore,
     private router: Router
-  ) {}
+  ) {
+  }
 
   async loginGoogle() {
     const provider = new GoogleAuthProvider();
     await this.afAuth.signInWithPopup(provider);
     const user = await this.afAuth.currentUser;
-    return  this.updateUserData(user);
+    return this.updateUserData(user);
   }
+
   async loginWithFacebook() {
     const provider = new FacebookAuthProvider();
     await this.afAuth.signInWithPopup(provider);
     const user = await this.afAuth.currentUser;
-    return  this.updateUserData(user);
-  }
-  async logout() {
-    await this.afAuth.signOut();
-    return this.router.navigate(['/']);
+    return this.updateUserData(user);
   }
 
-  private updateUserData({ uid, email, displayName}: User) {
+  async loginWithEmail(email: string, password: string) {
+    await this.afAuth.signInWithEmailAndPassword(email, password);
+    const modifiedUser = this.modifycreatedUserData(await this.afAuth.currentUser, email);
+    return this.updateUserData(modifiedUser);
+  }
+
+  async createNewUser(email: string, password: string, displayName: string) {
+    await this.afAuth.createUserWithEmailAndPassword(email, password);
+    const modifiedUser = this.modifycreatedUserData(await this.afAuth.currentUser, displayName);
+    this.updateUserData(modifiedUser);
+  }
+
+  async logout() {
+    await this.afAuth.signOut();
+    return null;
+  }
+
+  private updateUserData({uid, email, displayName}: User) {
 
     const userRef: AngularFirestoreDocument<AuUser> = this.afs.doc(`users/${uid}`);
 
     const data = {
       uid,
-      name : displayName,
+      name: displayName,
       email,
     };
 
-    userRef.set(data, { merge: true });
+    userRef.set(data, {merge: true});
 
     return data as AuUser;
+  }
+
+  private modifycreatedUserData({uid, email}: User, realName: string) {
+    const data = {
+      uid,
+      displayName: realName,
+      email,
+    };
+    return data as User;
+  }
+
+  private getUserData(uid: string) {
+    return this.afs.doc(`users/${uid}`).snapshotChanges();
   }
 }

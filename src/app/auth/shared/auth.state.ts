@@ -1,10 +1,9 @@
 import {AuUser} from '../entities/user';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {AuthService} from './auth.service';
-import {LoginWithFaceBook, LoginWithGoogle, Logout} from './auth.action';
+import {CreateEmail, LoginWithEmail, LoginWithFaceBook, LoginWithGoogle, Logout} from './auth.action';
 import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {UpdateExistingProduct} from '../../shared/product-actions/product.action';
 import {ProductStateModel} from '../../shared/product-actions/product.state';
 
 export class AuthStateModel {
@@ -28,7 +27,6 @@ export class AuthState {
   static loggedInUser(state: AuthStateModel) {
     return state.loggedInUser;
   }
-
   @Selector()
   static loggedInUserName(state: AuthStateModel) {
     return state.userName;
@@ -45,6 +43,18 @@ export class AuthState {
         });
         }
       );
+  }
+  @Action(LoginWithEmail)
+  loginWithEmail({getState, setState}: StateContext<AuthStateModel>, {username, password}: LoginWithEmail) {
+    return this.authService.loginWithEmail(username,password).then((result) => {
+        const state = getState();
+        setState({
+          ...state,
+          loggedInUser: result,
+          userName: result.name
+        });
+      }
+    );
   }
   @Action(LoginWithFaceBook)
   loginWithFacebook({getState, setState}: StateContext<AuthStateModel>) {
@@ -70,5 +80,10 @@ export class AuthState {
         });
       }
     );
+  }
+
+  @Action(CreateEmail)
+  CreateEmail({getState, setState}: StateContext<AuthStateModel>, {email, password, displayName}: CreateEmail) {
+    return this.authService.createNewUser(email, password, displayName);
   }
 }
