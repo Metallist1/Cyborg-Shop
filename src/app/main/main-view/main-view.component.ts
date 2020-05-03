@@ -5,8 +5,6 @@ import {Select, Store} from '@ngxs/store';
 import {Logout} from '../../auth/shared/auth.action';
 import {AuthState} from '../../auth/shared/auth.state';
 import {Observable} from 'rxjs';
-import {ProductState} from '../../shared/product-actions/product.state';
-import {Product} from '../../shared/entities/product';
 
 @Component({
   selector: 'app-main-view',

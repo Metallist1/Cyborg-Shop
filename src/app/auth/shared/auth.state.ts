@@ -2,9 +2,7 @@ import {AuUser} from '../entities/user';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {AuthService} from './auth.service';
 import {CreateEmail, LoginWithEmail, LoginWithFaceBook, LoginWithGoogle, Logout} from './auth.action';
-import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
-import {ProductStateModel} from '../../shared/product-actions/product.state';
 
 export class AuthStateModel {
   loggedInUser: AuUser;
@@ -46,7 +44,7 @@ export class AuthState {
   }
   @Action(LoginWithEmail)
   loginWithEmail({getState, setState}: StateContext<AuthStateModel>, {username, password}: LoginWithEmail) {
-    return this.authService.loginWithEmail(username,password).then((result) => {
+    return this.authService.loginWithEmail(username, password).then((result) => {
         const state = getState();
         setState({
           ...state,

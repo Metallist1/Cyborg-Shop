@@ -14,11 +14,13 @@ import { ProductSubmitFormComponent } from './main/product-submit-form/product-s
 import {ReactiveFormsModule} from '@angular/forms';
 import { LoginViewComponent } from './login/login-view/login-view.component';
 import { LoginEmailComponent } from './login/login-email/login-email.component';
-// ...omitted
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { LoginRegisterComponent } from './login/login-register/login-register.component';
+import { AdminViewComponent } from './admin/admin-view/admin-view.component';
+
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,11 +29,15 @@ import { LoginRegisterComponent } from './login/login-register/login-register.co
     ProductSubmitFormComponent,
     LoginViewComponent,
     LoginEmailComponent,
-    LoginRegisterComponent
+    LoginRegisterComponent,
+    AdminViewComponent
   ],
   imports: [NgxsModule.forRoot([ProductState, AuthState], {
     developmentMode: !environment.production
   }),
+    NgxsStoragePluginModule.forRoot({
+      key: 'auth'
+    }),
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
