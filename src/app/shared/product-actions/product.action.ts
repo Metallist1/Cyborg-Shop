@@ -2,6 +2,7 @@ import {Product} from '../entities/product';
 
 export class ReadProducts {
   static readonly type = 'ReadProducts';
+  constructor(public tablename: string, public type: string) {}
 }
 
 export class WriteNewProduct {

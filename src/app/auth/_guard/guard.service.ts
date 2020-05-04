@@ -15,20 +15,18 @@ export class GuardService implements CanActivate {
   constructor(private router: Router, private store: Store) {
     this.currentUser.subscribe(
       (data) => {
-        console.log(data);
         this.currentU = data;
       });
   }
 
   canActivate() {
-    console.log(this.currentU);
     if (this.currentU) {
       // logged in so return true
       return true;
     }
 
     // not logged in so redirect to login page
-    // this.router.navigate(['/']);
+    this.router.navigate(['/']);
     return false;
   }
 }

@@ -5,6 +5,8 @@ import {ProductService} from './product.service';
 import {DeleteProduct, ReadProducts, SetSelectedProduct, UpdateExistingProduct, WriteNewProduct} from './product.action';
 import {tap} from 'rxjs/operators';
 import {Injectable} from '@angular/core';
+import {LoginWithEmail} from '../../auth/shared/auth.action';
+import {AuthStateModel} from '../../auth/shared/auth.state';
 
 export class ProductStateModel {
   products: Product[];
@@ -33,8 +35,8 @@ export class ProductState {
     return state.selectedProduct;
   }
   @Action(ReadProducts)
-  getProducts({getState, setState}: StateContext<ProductStateModel>) {
-    return this.productService.ReadProductsFromBase().pipe(tap((result) => {
+  getProducts({getState, setState}: StateContext<ProductStateModel>, {tablename, type}: ReadProducts) {
+    return this.productService.ReadProductsFromBase(tablename, type).pipe(tap((result) => {
       const state = getState();
       setState({
         ...state,

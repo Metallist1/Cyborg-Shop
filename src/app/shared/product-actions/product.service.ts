@@ -9,8 +9,28 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class ProductService {
   constructor(private firestore: AngularFirestore) {}
 
-  ReadProductsFromBase() {
-    return this.firestore.collection('products').snapshotChanges().pipe(
+
+  // pagination
+  ref: any;
+  first: any;
+  last: any;
+  ReadProductsFromBase(tablename: string, type: string) {
+    if (type === 'next') {
+      this.ref = this.next();
+    } else if (type === 'back') {
+      this.ref = this.before();
+    } else {
+      this.ref = this.default();
+    }
+
+    const queryExecuted =  this.firestore.collection(tablename, this.ref).snapshotChanges();
+    // Get old refrences for pagination
+    queryExecuted.subscribe(data => {
+      this.first = data[0].payload.doc;
+      this.last = data[data.length - 1].payload.doc;
+    });
+    // Map result set
+    return queryExecuted.pipe(
       map (courses => courses.map(a => {
           // @ts-ignore
         const name = a.payload.doc.data().name;
@@ -19,6 +39,24 @@ export class ProductService {
         })
       ));
   }
+
+  private next() {
+    return  ref => ref.orderBy('name', 'desc')
+      .startAfter(this.last)
+      .limit(4);
+  }
+
+  private default() {
+    return ref => ref.orderBy('name', 'desc')
+      .limit(4);
+  }
+  private before() {
+    return ref => ref.orderBy('name', 'desc')
+      .endBefore(this.first)
+      .limitToLast(4);
+  }
+  // end of pagination
+
 
   CreateProductInBase(data: Product) {
     return new Promise<any>((resolve, reject) =>{

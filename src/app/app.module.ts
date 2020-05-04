@@ -21,6 +21,8 @@ import { LoginRegisterComponent } from './login/login-register/login-register.co
 import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
+import { AdminProductSelectComponent } from './admin/admin-product-select/admin-product-select.component';
+import { AdminProductEditComponent } from './admin/admin-product-edit/admin-product-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +32,9 @@ import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
     LoginViewComponent,
     LoginEmailComponent,
     LoginRegisterComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    AdminProductSelectComponent,
+    AdminProductEditComponent
   ],
   imports: [NgxsModule.forRoot([ProductState, AuthState], {
     developmentMode: !environment.production
