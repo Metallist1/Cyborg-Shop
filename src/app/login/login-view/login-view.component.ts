@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {AuthState} from '../../auth/shared/auth.state';
 import {Observable} from 'rxjs';
 import {AuUser} from '../../auth/entities/user';
+import {ClearCart} from '../../shared/cart-actions/cart.actions';
 @Component({
   selector: 'app-login-view',
   templateUrl: './login-view.component.html',
@@ -33,6 +34,7 @@ export class LoginViewComponent implements OnInit {
     this.store.dispatch(new LoginWithGoogle()).pipe()
       .subscribe(
         data => {
+          this.store.dispatch(new ClearCart());
           this.router.navigate(['/']);
         });
   }
@@ -40,6 +42,7 @@ export class LoginViewComponent implements OnInit {
     this.store.dispatch(new LoginWithFaceBook()).pipe()
       .subscribe(
         data => {
+          this.store.dispatch(new ClearCart());
           this.router.navigate(['/']);
         });
   }

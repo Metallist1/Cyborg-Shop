@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {LoginWithEmail} from '../../auth/shared/auth.action';
 import {first} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
+import {ClearCart} from '../../shared/cart-actions/cart.actions';
 
 @Component({
   selector: 'app-login-email',
@@ -50,6 +51,7 @@ export class LoginEmailComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          this.store.dispatch(new ClearCart());
           this.router.navigate(['/']);
         },
         error => {

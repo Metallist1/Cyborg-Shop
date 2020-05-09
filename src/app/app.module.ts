@@ -22,8 +22,11 @@ import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { AdminProductSelectComponent } from './admin/admin-product-select/admin-product-select.component';
 import { AdminProductEditComponent } from './admin/admin-product-edit/admin-product-edit.component';
-import { SingleProductViewComponent } from './main/single-product-view/single-product-view.component';
+import { SingleProductViewComponent } from './main/order/single-product-view/single-product-view.component';
 import { MainNavComponent } from './main/main-nav/main-nav.component';
+import { CartViewComponent } from './main/order/cart-view/cart-view.component';
+import { OrderViewComponent } from './main/order/order-view/order-view.component';
+import {CartState} from './shared/cart-actions/cart.state';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,13 +39,15 @@ import { MainNavComponent } from './main/main-nav/main-nav.component';
     AdminProductSelectComponent,
     AdminProductEditComponent,
     SingleProductViewComponent,
-    MainNavComponent
+    MainNavComponent,
+    CartViewComponent,
+    OrderViewComponent
   ],
-  imports: [NgxsModule.forRoot([ProductState, AuthState], {
+  imports: [NgxsModule.forRoot([ProductState, AuthState, CartState], {
     developmentMode: !environment.production
   }),
     NgxsStoragePluginModule.forRoot({
-      key: 'auth'
+      key: ['auth', 'cart', 'product']
     }),
     BrowserModule,
     AppRoutingModule,

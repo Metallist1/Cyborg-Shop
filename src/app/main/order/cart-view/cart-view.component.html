@@ -1,0 +1,9 @@
+<div class="col">
+  <div *ngIf="Products">
+    <div *ngFor="let product of Products | async">
+      <div>{{ product.name }}</div>
+      <div>{{ product.cost }}</div>
+      <a class="nav-item nav-link" (click)="removeItem(product)">Remove</a>
+    </div>
+  </div>
+</div>
