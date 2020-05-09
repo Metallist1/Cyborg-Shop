@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { GuardService } from './auth/_guard/guard.service';
 import { MainViewComponent } from './main/main-view/main-view.component';
+import { SingleProductViewComponent } from './main/single-product-view/single-product-view.component';
 import { LoginViewComponent } from './login/login-view/login-view.component';
 import { LoginRegisterComponent } from './login/login-register/login-register.component';
 import { AdminViewComponent } from './admin/admin-view/admin-view.component';
@@ -10,6 +11,7 @@ import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 const routes: Routes = [{path: '', component: MainViewComponent },
   {path: 'login', component:  LoginViewComponent},
   {path: 'register', component:  LoginRegisterComponent},
+  {path: 'single-product-view', component:  SingleProductViewComponent},
   {path: 'admin', component:  AdminViewComponent,  canActivate: [GuardService]}];
 
 @NgModule({

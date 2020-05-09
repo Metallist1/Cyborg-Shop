@@ -1,7 +1,8 @@
 export interface Product {
   uId?: string;
   name: string;
-  url?: string;
-  price?: number;
-  timesPurchased?: number;
+  inStock :number;
+  estimatedShipping: number;
+  description: string;
+  cost: number;
 }

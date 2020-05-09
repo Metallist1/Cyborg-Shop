@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">66.67% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">71.43% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/9</span>
+                <span class='fraction'>5/7</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -80,13 +80,7 @@
 <a name='L21'></a><a href='#L21'>21</a>
 <a name='L22'></a><a href='#L22'>22</a>
 <a name='L23'></a><a href='#L23'>23</a>
-<a name='L24'></a><a href='#L24'>24</a>
-<a name='L25'></a><a href='#L25'>25</a>
-<a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a>
-<a name='L30'></a><a href='#L30'>30</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L24'></a><a href='#L24'>24</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -94,11 +88,11 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -107,12 +101,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import {Change, EventContext} from 'firebase-functions';
@@ -125,9 +113,9 @@ import {Order} from '../models/order';
 export class ProductControllerFirebase implements ProductController {
   constructor(private productService: ProductService) {}
 &nbsp;
-  addProductToStock(snap: DocumentSnapshot, context: EventContext): Promise&lt;void&gt; {
-    const product = snap.data() as Product;
-    return this.productService.addProductToStock(context.params.productId, product);
+<span class="fstat-no" title="function not covered" >  buyProduct(</span>snap: FirebaseFirestore.DocumentSnapshot&lt;FirebaseFirestore.DocumentData&gt;, context: EventContext): Promise&lt;void&gt; {
+    const order = <span class="cstat-no" title="statement not covered" >snap.data() as Order;</span>
+<span class="cstat-no" title="statement not covered" >    return this.productService.buyProduct(context.params.orderId,order);</span>
   }
 &nbsp;
   renameProduct(snap: Change&lt;DocumentSnapshot&gt;, context: EventContext): Promise&lt;void&gt; {
@@ -137,12 +125,6 @@ export class ProductControllerFirebase implements ProductController {
 &nbsp;
     return this.productService.renameProduct(context.params.productId, beforeP,afterP);
   }
-&nbsp;
-  buyProduct(snap: FirebaseFirestore.DocumentSnapshot&lt;FirebaseFirestore.DocumentData&gt;, context: EventContext): Promise&lt;void&gt; {
-    const order = snap.data() as Order;
-    return this.productService.buyProduct(context.params.orderId,order);
-  }
-&nbsp;
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -151,7 +133,7 @@ export class ProductControllerFirebase implements ProductController {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Mar 31 2020 06:13:49 GMT+0200 (Central European Summer Time)
+                at Fri May 08 2020 13:53:30 GMT+0200 (Central European Summer Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

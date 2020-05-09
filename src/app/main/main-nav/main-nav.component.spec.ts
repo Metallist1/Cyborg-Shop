@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProductSubmitFormComponent } from './product-submit-form.component';
+import { MainNavComponent } from './main-nav.component';
 
-describe('ProductSubmitFormComponent', () => {
-  let component: ProductSubmitFormComponent;
-  let fixture: ComponentFixture<ProductSubmitFormComponent>;
+describe('MainNavComponent', () => {
+  let component: MainNavComponent;
+  let fixture: ComponentFixture<MainNavComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductSubmitFormComponent ]
+      declarations: [ MainNavComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProductSubmitFormComponent);
+    fixture = TestBed.createComponent(MainNavComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

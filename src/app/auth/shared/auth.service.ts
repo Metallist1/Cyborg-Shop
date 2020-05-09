@@ -11,12 +11,9 @@ import {
   AngularFirestoreDocument
 } from '@angular/fire/firestore';
 
-import { Observable, of } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 import GoogleAuthProvider = firebase.auth.GoogleAuthProvider;
 import * as firebase from 'firebase';
 import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
-import {Stock} from '../../../../functions/src/models/stock';
 
 @Injectable({
   providedIn: 'root'

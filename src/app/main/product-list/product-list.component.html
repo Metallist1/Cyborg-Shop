@@ -1,19 +1,10 @@
 <div class="col">
   <div *ngIf="Products">
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let product of Products | async">
-        <td>{{ product.uid }}</td>
-        <td>{{ product.name }}</td>
-      </tr>
-      </tbody>
-    </table>
+    <div *ngFor="let product of Products | async;  index as i" (click)="showDetails(i)">
+      <img src='{{ product.img }}' alt='image'>
+      <div>{{ product.name }}</div>
+      <div>{{ product.cost }}</div>
+    </div>
   </div>
   <button *ngIf="page > 0" type="button" class="btn btn-primary" (click)="before()">Back</button>
   <label class="col-md-4">Page : {{page}}</label>

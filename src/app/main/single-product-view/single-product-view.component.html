@@ -1,0 +1,18 @@
+<div class="container">
+  <app-main-nav></app-main-nav>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col">
+        <div *ngIf="Product">
+            <img src='{{ currentP.img }}' alt='image'>
+            <div>{{ currentP.name }}</div>
+            <div>{{ currentP.cost }}</div>
+          <div>{{ currentP.description }}</div>
+          <div>{{ currentP.inStock }}</div>
+          <div>{{ currentP.estimatedShipping }}</div>
+          <div>{{ currentP.uid }}</div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

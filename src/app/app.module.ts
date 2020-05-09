@@ -10,7 +10,6 @@ import {environment} from '../environments/environment';
 import { ProductState } from './shared/product-actions/product.state';
 import { AuthState } from './auth/shared/auth.state';
 import { ProductListComponent } from './main/product-list/product-list.component';
-import { ProductSubmitFormComponent } from './main/product-submit-form/product-submit-form.component';
 import {ReactiveFormsModule} from '@angular/forms';
 import { LoginViewComponent } from './login/login-view/login-view.component';
 import { LoginEmailComponent } from './login/login-email/login-email.component';
@@ -23,18 +22,21 @@ import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { AdminProductSelectComponent } from './admin/admin-product-select/admin-product-select.component';
 import { AdminProductEditComponent } from './admin/admin-product-edit/admin-product-edit.component';
+import { SingleProductViewComponent } from './main/single-product-view/single-product-view.component';
+import { MainNavComponent } from './main/main-nav/main-nav.component';
 @NgModule({
   declarations: [
     AppComponent,
     MainViewComponent,
     ProductListComponent,
-    ProductSubmitFormComponent,
     LoginViewComponent,
     LoginEmailComponent,
     LoginRegisterComponent,
     AdminViewComponent,
     AdminProductSelectComponent,
-    AdminProductEditComponent
+    AdminProductEditComponent,
+    SingleProductViewComponent,
+    MainNavComponent
   ],
   imports: [NgxsModule.forRoot([ProductState, AuthState], {
     developmentMode: !environment.production

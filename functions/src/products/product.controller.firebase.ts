@@ -8,9 +8,9 @@ import {Order} from '../models/order';
 export class ProductControllerFirebase implements ProductController {
   constructor(private productService: ProductService) {}
 
-  addProductToStock(snap: DocumentSnapshot, context: EventContext): Promise<void> {
-    const product = snap.data() as Product;
-    return this.productService.addProductToStock(context.params.productId, product);
+  buyProduct(snap: FirebaseFirestore.DocumentSnapshot<FirebaseFirestore.DocumentData>, context: EventContext): Promise<void> {
+    const order = snap.data() as Order;
+    return this.productService.buyProduct(context.params.orderId,order);
   }
 
   renameProduct(snap: Change<DocumentSnapshot>, context: EventContext): Promise<void> {
@@ -20,10 +20,4 @@ export class ProductControllerFirebase implements ProductController {
 
     return this.productService.renameProduct(context.params.productId, beforeP,afterP);
   }
-
-  buyProduct(snap: FirebaseFirestore.DocumentSnapshot<FirebaseFirestore.DocumentData>, context: EventContext): Promise<void> {
-    const order = snap.data() as Order;
-    return this.productService.buyProduct(context.params.orderId,order);
-  }
-
 }

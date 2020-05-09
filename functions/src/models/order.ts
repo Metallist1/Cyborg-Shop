@@ -1,5 +1,6 @@
 export interface Order {
-  productBID: string;
-  productBName: string;
-  productBCount: number;
+  productID: string;
+  name: string;
+  count: number;
+  cost: number;
 }

@@ -1,16 +1,5 @@
 <div class="container">
-  <nav class="navbar navbar-expand navbar-dark bg-dark">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" routerLink="/admin">Home</a>
-        <ng-template [ngIf]="currentU" [ngIfElse]="loggedOut">
-          <label class="col-md-4">{{ currentU.name}}</label>
-          <a class="nav-item nav-link" (click)="logout()">Logout</a>
-        </ng-template>
-        <ng-template #loggedOut>
-          <button type="button" class="btn btn-primary" routerLink="/login" routerLinkActive="active">Login</button>
-        </ng-template>
-    </div>
-  </nav>
+  <app-main-nav></app-main-nav>
   <div class="row">
     <div class="col-md-6">
       <app-product-list></app-product-list>

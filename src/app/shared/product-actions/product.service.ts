@@ -34,8 +34,19 @@ export class ProductService {
       map (courses => courses.map(a => {
           // @ts-ignore
         const name = a.payload.doc.data().name;
+        // @ts-ignore
+        const cost = a.payload.doc.data().cost;
+        // @ts-ignore
+        const description = a.payload.doc.data().description;
+        // @ts-ignore
+        const estimatedShipping = a.payload.doc.data().estimatedShipping;
+        // @ts-ignore
+        const inStock = a.payload.doc.data().inStock;
+        // @ts-ignore
+        const img = a.payload.doc.data().img;
         const uid = a.payload.doc.id;
-        return {uid, name} as Product;
+
+        return {uid, name, cost, description, estimatedShipping, inStock,img} as Product;
         })
       ));
   }
