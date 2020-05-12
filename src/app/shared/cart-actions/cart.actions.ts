@@ -1,8 +1,16 @@
 import {Product} from '../entities/product';
-import {Order} from '../entities/order';
 
 export class AddToCart {
   static readonly type = 'AddToCart';
+  constructor(public payload: Product) {}
+}
+export class IncreaseCountToProduct {
+  static readonly type = 'IncreaseCountToProduct';
+  constructor(public payload: Product) {}
+}
+
+export class DecreaseCountToProduct {
+  static readonly type = 'DecreaseCountToProduct';
   constructor(public payload: Product) {}
 }
 
@@ -13,7 +21,7 @@ export class RemoveFromCart {
 
 export class CreateOrder {
   static readonly type = 'CreateOrder';
-  constructor(public payload: Order) {}
+  constructor(public payload: string) {}
 }
 
 export class ClearCart {

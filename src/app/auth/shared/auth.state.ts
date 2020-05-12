@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 
 export class AuthStateModel {
   loggedInUser: AuUser;
+  userUID: string;
   userName: string;
 }
 
@@ -13,6 +14,7 @@ export class AuthStateModel {
   name: 'auth',
   defaults: {
     loggedInUser: undefined,
+    userUID: undefined,
     userName: undefined
   }
 })
@@ -29,7 +31,10 @@ export class AuthState {
   static loggedInUserName(state: AuthStateModel) {
     return state.userName;
   }
-
+  @Selector()
+  static userUID(state: AuthStateModel) {
+    return state.userUID;
+  }
   @Action(LoginWithGoogle)
   loginWithGoogle({getState, setState}: StateContext<AuthStateModel>) {
     return this.authService.loginGoogle().then((result) => {
@@ -37,6 +42,7 @@ export class AuthState {
           setState({
           ...state,
           loggedInUser: result,
+            userUID: result.uid,
           userName: result.name
         });
         }
@@ -49,6 +55,7 @@ export class AuthState {
         setState({
           ...state,
           loggedInUser: result,
+          userUID: result.uid,
           userName: result.name
         });
       }
@@ -61,6 +68,7 @@ export class AuthState {
         setState({
           ...state,
           loggedInUser: result,
+          userUID: result.uid,
           userName: result.name
         });
       }
@@ -74,6 +82,7 @@ export class AuthState {
         setState({
           ...state,
           loggedInUser: undefined,
+          userUID: undefined,
           userName: undefined
         });
       }

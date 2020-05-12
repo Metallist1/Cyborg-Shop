@@ -6,7 +6,8 @@ import {Product} from '../../../shared/entities/product';
 import {Router} from '@angular/router';
 import {ReadProducts, SetSelectedProduct} from '../../../shared/product-actions/product.action';
 import {CartState} from '../../../shared/cart-actions/cart.state';
-import {RemoveFromCart} from '../../../shared/cart-actions/cart.actions';
+import {CreateOrder, DecreaseCountToProduct, IncreaseCountToProduct, RemoveFromCart} from '../../../shared/cart-actions/cart.actions';
+import {AuthState} from '../../../auth/shared/auth.state';
 
 @Component({
   selector: 'app-cart-view',
@@ -15,8 +16,14 @@ import {RemoveFromCart} from '../../../shared/cart-actions/cart.actions';
 })
 export class CartViewComponent implements OnInit {
   @Select(CartState.getCart) Products: Observable<Product[]>;
+  @Select(AuthState.userUID) userID: Observable<string>;
 
+  realUserID: string;
   constructor(private store: Store, private router: Router) {
+    this.userID.subscribe(
+      (data) => {
+        this.realUserID = data;
+      });
   }
 
   ngOnInit() {
@@ -24,5 +31,21 @@ export class CartViewComponent implements OnInit {
 
   removeItem(product: Product) {
     this.store.dispatch(new RemoveFromCart(product));
+  }
+
+  placeOrder() {
+    if(this.realUserID === undefined){
+      this.realUserID = '-1';
+    }
+    this.store.dispatch(new CreateOrder(this.realUserID));
+    this.router.navigate(['/order']);
+  }
+
+  addToStock(product: Product) {
+    this.store.dispatch(new IncreaseCountToProduct(product));
+  }
+
+  removeFromStock(product: Product) {
+    this.store.dispatch(new DecreaseCountToProduct(product));
   }
 }

@@ -46,7 +46,7 @@ export class ProductService {
         const img = a.payload.doc.data().img;
         const uid = a.payload.doc.id;
 
-        return {uid, name, cost, description, estimatedShipping, inStock,img} as Product;
+        return {uid, name, cost, description, estimatedShipping, inStock, img, count : 1} as Product;
         })
       ));
   }

@@ -1,9 +1,14 @@
 <div class="col">
+  <app-main-nav></app-main-nav>
   <div *ngIf="Products">
     <div *ngFor="let product of Products | async">
       <div>{{ product.name }}</div>
       <div>{{ product.cost }}</div>
-      <a class="nav-item nav-link" (click)="removeItem(product)">Remove</a>
+      <div>{{ product.count }}</div>
+      <a class="nav-item nav-link" (click)="addToStock(product)">Add To Stock</a>
+      <a class="nav-item nav-link" (click)="removeFromStock(product)">Remove From Stock</a>
+      <a class="nav-item nav-link" (click)="removeItem(product)">Remove from cart</a>
     </div>
+    <a class="nav-item nav-link" (click)="placeOrder()">Place Order</a>
   </div>
 </div>

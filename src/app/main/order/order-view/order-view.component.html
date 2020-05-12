@@ -1,1 +1,17 @@
-<p>order-view works!</p>
+<div class="col">
+  <app-main-nav></app-main-nav>
+  <div *ngIf="realOrder">
+    <div>ORDER :</div>
+    <div>{{ realOrder.userID }}</div>
+    <div>{{ realOrder.totalCost }}</div>
+    <div>{{ realOrder.status }}</div>
+    <div>{{ realOrder.estimatedShippingTime }}</div>
+    <div>{{ realOrder.shippingID }}</div>
+    <div>PRODUCTS :</div>
+    <div *ngFor="let product of Products | async">
+      <div>{{ product.name }}</div>
+      <div>{{ product.cost }}</div>
+      <div>{{ product.count }}</div>
+    </div>
+  </div>
+</div>

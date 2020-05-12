@@ -1,20 +1,22 @@
 import {Product} from '../entities/product';
 import {Action, Selector, State, StateContext} from '@ngxs/store';
 import {Injectable} from '@angular/core';
-import {ProductService} from '../product-actions/product.service';
-import {ReadProducts, SetSelectedProduct, UpdateExistingProduct, WriteNewProduct} from '../product-actions/product.action';
-import {tap} from 'rxjs/operators';
-import {AddToCart, ClearCart, CreateOrder, RemoveFromCart} from './cart.actions';
+import {AddToCart, ClearCart, CreateOrder, DecreaseCountToProduct, IncreaseCountToProduct, RemoveFromCart} from './cart.actions';
 import {CartService} from './cart.service';
+import {Order} from '../entities/order';
 
 export class CartStateModel {
   products: Product[];
+  madeOrder: Order;
+  productsInOrder: Product[];
 }
 
 @State<CartStateModel>({
   name: 'cart',
   defaults: {
-    products: []
+    products: [],
+    madeOrder: undefined,
+    productsInOrder: []
   }
 })
 @Injectable()
@@ -27,14 +29,75 @@ export class CartState {
   static getCart(state: CartStateModel) {
     return state.products;
   }
-
+  @Selector()
+  static getOrderInfo(state: CartStateModel) {
+    return state.madeOrder;
+  }
+  @Selector()
+  static getRecentOrderCart(state: CartStateModel) {
+    return state.productsInOrder;
+  }
   @Action(AddToCart)
-  addToCart({getState, patchState}: StateContext<CartStateModel>, {payload}: AddToCart) {
+  addToCart({getState, patchState, setState}: StateContext<CartStateModel>, {payload}: AddToCart) {
       const state = getState();
-      patchState({
-        products: [...state.products, payload]
+      const productList = [...state.products];
+      const productIndex = productList.findIndex(item => item.uid === payload.uid);
+      if (productIndex === -1) {
+        patchState({
+          products: [...state.products, payload]
+        });
+      } else {
+        const copiedArray = JSON.parse(JSON.stringify(productList));
+        const newProduct = copiedArray[productIndex];
+        newProduct.count++;
+        if (newProduct.count <= newProduct.inStock) {
+          copiedArray[productIndex] = newProduct;
+
+          setState({
+            ...state,
+            products: copiedArray,
+          });
+        }
+      }
+  }
+  @Action(IncreaseCountToProduct)
+  increaseCountToProduct({getState, setState}: StateContext<CartStateModel>, {payload}: IncreaseCountToProduct) {
+    const state = getState();
+    const productList = [...state.products];
+    const productIndex = productList.findIndex(item => item.uid === payload.uid);
+    if (productIndex !== -1) {
+      const copiedArray = JSON.parse(JSON.stringify(productList));
+      const newProduct = copiedArray[productIndex];
+      newProduct.count++;
+      if (newProduct.count <= newProduct.inStock) {
+      copiedArray[productIndex] = newProduct;
+
+      setState({
+        ...state,
+        products: copiedArray,
       });
-      console.log(state.products);
+    }
+    }
+  }
+
+  @Action(DecreaseCountToProduct)
+  decreaseCountToProduct({getState, setState}: StateContext<CartStateModel>, {payload}: DecreaseCountToProduct) {
+    const state = getState();
+    const productList = [...state.products];
+    const productIndex = productList.findIndex(item => item.uid === payload.uid);
+    if (productIndex !== -1) {
+      const copiedArray = JSON.parse(JSON.stringify(productList));
+      const newProduct = copiedArray[productIndex];
+      newProduct.count--;
+      if (newProduct.count > 0) {
+        copiedArray[productIndex] = newProduct;
+
+        setState({
+          ...state,
+          products: copiedArray,
+        });
+      }
+    }
   }
 
   @Action(RemoveFromCart)
@@ -50,12 +113,15 @@ export class CartState {
 
   // TODO
   @Action(CreateOrder)
-  createOrder({getState, patchState}: StateContext<CartStateModel>, {payload}: CreateOrder) {
-    return this.cartService.createOrder(payload).then((result) => {
-      const state = getState();
-      patchState({
-        products: [...state.products, result]
-      });
+  createOrder({getState, setState, patchState}: StateContext<CartStateModel>, {payload}: CreateOrder) {
+    const state = getState();
+    const newOrder = this.processOrder(payload, state.products) as Order;
+    this.cartService.createOrder(newOrder, state.products);
+    setState({
+      ...state,
+      madeOrder: newOrder,
+      productsInOrder: state.products,
+      products: [],
     });
   }
 
@@ -64,7 +130,37 @@ export class CartState {
     const state = getState();
     setState({
       ...state,
-      products: undefined,
+      products: [],
     });
+  }
+
+  private processOrder(userIDs: string, allProducts: Product[]) {
+    return {
+      userID: userIDs,
+      shippingID: this.randomIntFromInterval(),
+      estimatedShippingTime: this.getHighestShippingTime(allProducts),
+      status: 'Processing',
+      totalCost: this.getTotalCost(allProducts)
+    };
+  }
+  private randomIntFromInterval() {
+      return Math.floor(Math.random() * (999999999 - 100000000 + 1) + 100000000);
+    }
+  private getHighestShippingTime(allProducts: Product[]) {
+    const copiedArray = JSON.parse(JSON.stringify(allProducts));
+    const sortedPeaks = copiedArray.sort((a, b) => b.estimatedShipping - a.estimatedShipping)
+
+    return sortedPeaks[0].estimatedShipping;
+  }
+
+  private getTotalCost(allProducts: Product[]) {
+    const totalListOfProducts = [];
+    allProducts.forEach(childObj => {
+      for (let i = 0; i < childObj.count; i++) {
+        totalListOfProducts.push(childObj);
+      }
+    });
+    const sum = totalListOfProducts.map(o => o.cost).reduce((a, c) => a + c);
+    return sum;
   }
 }

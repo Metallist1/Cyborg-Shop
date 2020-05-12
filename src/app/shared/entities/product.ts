@@ -6,4 +6,5 @@ export interface Product {
   inStock: number;
   cost: number;
   img: string;
+  count?: number;
 }
