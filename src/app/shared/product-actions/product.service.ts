@@ -14,6 +14,7 @@ export class ProductService {
   ref: any;
   first: any;
   last: any;
+  pageSize = 10;
   ReadProductsFromBase(tablename: string, type: string) {
     if (type === 'next') {
       this.ref = this.next();
@@ -54,17 +55,17 @@ export class ProductService {
   private next() {
     return  ref => ref.orderBy('name', 'desc')
       .startAfter(this.last)
-      .limit(4);
+      .limit(this.pageSize);
   }
 
   private default() {
     return ref => ref.orderBy('name', 'desc')
-      .limit(4);
+      .limit(this.pageSize);
   }
   private before() {
     return ref => ref.orderBy('name', 'desc')
       .endBefore(this.first)
-      .limitToLast(4);
+      .limitToLast(this.pageSize);
   }
   // end of pagination
 

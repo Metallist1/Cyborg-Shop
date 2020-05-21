@@ -1,12 +1,14 @@
-<div class="col">
-  <div *ngIf="Products">
-    <div *ngFor="let product of Products | async;  index as i" (click)="showDetails(i)">
-      <img src='{{ product.img }}' alt='image'>
+<div class="main">
+  <div class="row" *ngIf="Products">
+    <div class="col-sm-4 col-md-3 col-lg-2 product" *ngFor="let product of Products | async;  index as i" (click)="showDetails(i)">
       <div>{{ product.name }}</div>
       <div>{{ product.cost }}</div>
     </div>
   </div>
-  <button *ngIf="page > 0" type="button" class="btn btn-primary" (click)="before()">Back</button>
-  <label class="col-md-4">Page : {{page}}</label>
-  <button *ngIf="!isFinished"  type="button" class="btn btn-primary" (click)="next()">Front</button>
+  <div class="pageControll">
+    <button *ngIf="page > 0" type="button" class="btn btn-primary" (click)="before()">Back</button>
+    <label class="col-md-4">Page: {{page}}</label>
+    <button *ngIf="!isFinished"  type="button" class="btn btn-primary" (click)="next()">Front</button>
+  </div>
+
 </div>

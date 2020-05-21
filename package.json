@@ -22,12 +22,16 @@
     "@angular/router": "^9.1.6",
     "@ngxs/storage-plugin": "^3.6.2",
     "@ngxs/store": "^3.6.2",
+    "angular-particle": "^1.0.4",
     "angularfire2": "^5.4.2",
     "bootstrap": "^4.4.1",
     "firebase": "^7.14.3",
     "firebase-auth": "^0.1.2",
+    "jquery": "^3.5.1",
     "rxjs": "^6.5.5",
+    "three": "^0.116.1",
     "tslib": "^1.11.2",
+    "vanta": "^0.5.15",
     "zone.js": "~0.10.2"
   },
   "devDependencies": {

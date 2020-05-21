@@ -1,8 +1,6 @@
-<div class="container">
-  <app-main-nav></app-main-nav>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="col">
+<app-main-nav></app-main-nav>
+  <div class="main">
+      <div class="product">
         <div *ngIf="Product">
             <img src='{{ currentP.img }}' alt='image'>
             <div>{{ currentP.name }}</div>
@@ -11,10 +9,7 @@
           <div>{{ currentP.inStock }}</div>
           <div>{{ currentP.estimatedShipping }}</div>
           <div>{{ currentP.uid }}</div>
-
-          <button type="button" class="btn btn-primary" (click)="addToCart()">Front</button>
           </div>
-      </div>
+        <button type="button" class="btn btn-primary" (click)="addToCart()">BUY</button>
     </div>
   </div>
-</div>
