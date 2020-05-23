@@ -5,4 +5,5 @@ export interface Product {
   estimatedShipping: number;
   description: string;
   cost: number;
-}
+  img: string;
+}//name,inStock,img,estimatedShipping,description,cost

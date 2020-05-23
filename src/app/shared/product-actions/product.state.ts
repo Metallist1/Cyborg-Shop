@@ -9,13 +9,15 @@ import {Injectable} from '@angular/core';
 export class ProductStateModel {
   products: Product[];
   selectedProduct: Product;
+  shouldPaginationStop: boolean;
 }
 
 @State<ProductStateModel>({
   name: 'product',
   defaults: {
     products: [],
-    selectedProduct: undefined
+    selectedProduct: undefined,
+    shouldPaginationStop: false
   }
 })
 @Injectable()
@@ -28,22 +30,38 @@ export class ProductState {
   static getALLProduct(state: ProductStateModel) {
     return state.products;
   }
+
   @Selector()
   static getSelectedProduct(state: ProductStateModel) {
     return state.selectedProduct;
   }
+
+  @Selector()
+  static getIsFinished(state: ProductStateModel) {
+    return state.shouldPaginationStop;
+  }
+
   @Action(ReadProducts)
-  getProducts({getState, setState}: StateContext<ProductStateModel>, {tablename, type}: ReadProducts) {
-    return this.productService.ReadProductsFromBase(tablename, type).pipe(tap((result) => {
+  getProducts({getState, setState}: StateContext<ProductStateModel>, {tablename, numberOfElements,
+    orderByType, order, type}: ReadProducts) {
+    return this.productService.ReadProductsFromBase(tablename, numberOfElements, orderByType, order, type).pipe(tap((result) => {
       const state = getState();
+      let isPaginationBad = false;
+
+      if (result.length < numberOfElements){
+        isPaginationBad = true;
+      }
+
       setState({
         ...state,
+        shouldPaginationStop: isPaginationBad,
         products: result,
       });
     }));
   }
   @Action(WriteNewProduct)
   WriteProducts({getState, patchState}: StateContext<ProductStateModel>, {payload}: WriteNewProduct) {
+    console.log(payload);
     return this.productService.CreateProductInBase(payload).then((result) => {
       const state = getState();
       patchState({

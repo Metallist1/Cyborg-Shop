@@ -6,7 +6,7 @@
     </div>
   </div>
   <div class="pageControll">
-    <button *ngIf="page > 0" type="button" class="btn btn-primary" (click)="before()">Back</button>
+    <button *ngIf="page > 1" type="button" class="btn btn-primary" (click)="before()">Back</button>
     <label class="col-md-4">Page: {{page}}</label>
     <button *ngIf="!isFinished"  type="button" class="btn btn-primary" (click)="next()">Front</button>
   </div>

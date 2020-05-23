@@ -2,7 +2,9 @@ import {Product} from '../entities/product';
 
 export class ReadProducts {
   static readonly type = 'ReadProducts';
-  constructor(public tablename: string, public type: string) {}
+  // tslint:disable-next-line:max-line-length
+  constructor(public tablename: string, public numberOfElements: number, public orderByType: string,
+              public order: string, public type: string) {}
 }
 
 export class WriteNewProduct {

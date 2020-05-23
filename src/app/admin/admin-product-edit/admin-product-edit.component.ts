@@ -41,21 +41,26 @@ export class AdminProductEditComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.productForm = this.fb.group({
-      uid: [''],
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      cost: ['', Validators.required],
+      inStock: ['', Validators.required],
+      estimatedShipping: ['', Validators.required],
+      desc: ['', Validators.required],
+      img: ['', Validators.required]
     });
   }
-
   onSubmit() {
-    if (this.editProduct && this.productForm.value.name !== '') {
+    if (this.productForm.value.name !== '') {
+      const modal = {
+        name: this.productForm.value.name,
+        cost: this.productForm.value.cost,
+        inStock: this.productForm.value.inStock,
+        estimatedShipping: this.productForm.value.estimatedShipping,
+        description: this.productForm.value.desc,
+        img: this.productForm.value.img,
+      } as Product;
       this.formSubscription.add(
-        this.store.dispatch(new UpdateExistingProduct(this.productForm.value)).subscribe(() => {
-          this.clearForm();
-        })
-      );
-    } else if (this.productForm.value.name !== '') {
-      this.formSubscription.add(
-        this.formSubscription = this.store.dispatch(new WriteNewProduct(this.productForm.value)).subscribe(() => {
+        this.formSubscription = this.store.dispatch(new WriteNewProduct(modal)).subscribe(() => {
           this.clearForm();
         })
       );

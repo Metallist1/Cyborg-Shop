@@ -1,6 +1,8 @@
 export interface Order {
-  productID: string;
-  name: string;
-  count: number;
-  cost: number;
+  uId?:string;
+  estimatedShippingTime: number;
+  shippingID: string;
+  status: string;
+  totalCost: number;
+  userID: string;
 }

@@ -13,33 +13,35 @@ import {Router} from '@angular/router';
 })
 export class ProductListComponent implements OnInit {
   @Select(ProductState.getALLProduct) Products: Observable<Product[]>;
-  page = 0;
+  @Select(ProductState.getIsFinished) shouldStop: Observable<boolean>;
+  page = 1;
   tablename = 'products';
   isFinished = false;
-
   constructor(private store: Store, private router: Router) {
   }
 
   ngOnInit() {
-    this.store.dispatch(new ReadProducts(this.tablename, 'default' ));
+    this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'default' ));
   }
 
   next() {
     this.page++;
-    this.store.dispatch(new ReadProducts(this.tablename, 'next'));
-    this.Products.subscribe(data => {
-      if (data.length < 4) {
-        this.isFinished = true;
+    this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'next'));
+    this.shouldStop.subscribe(data => {
+        this.isFinished = data;
       }
-    });
+    );
   }
 
   before() {
-    if (this.page > 0) {
+    if (this.page > 1) {
       this.page--;
-      this.store.dispatch(new ReadProducts(this.tablename, 'back'));
-      this.isFinished = false;
+      this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'back'));
     }
+    this.shouldStop.subscribe(data => {
+        this.isFinished = data;
+      }
+    );
   }
 
   showDetails(i: number) {

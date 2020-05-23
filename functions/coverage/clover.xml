@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1588938810362" clover="3.2.0">
-  <project timestamp="1588938810362" name="All files">
-    <metrics statements="47" coveredstatements="28" conditionals="0" coveredconditionals="0" methods="20" coveredmethods="8" elements="67" coveredelements="36" complexity="0" loc="47" ncloc="47" packages="2" files="5" classes="5"/>
+<coverage generated="1590219828092" clover="3.2.0">
+  <project timestamp="1590219828092" name="All files">
+    <metrics statements="38" coveredstatements="32" conditionals="0" coveredconditionals="0" methods="15" coveredmethods="9" elements="53" coveredelements="41" complexity="0" loc="38" ncloc="38" packages="2" files="5" classes="5"/>
     <package name="src">
-      <metrics statements="17" coveredstatements="16" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
+      <metrics statements="15" coveredstatements="15" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
       <file name="dependency-factory.ts" path="C:\Users\MrPc\Desktop\ExamProject\Angular\functions\src\dependency-factory.ts">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="2" count="1" type="stmt"/>
@@ -15,21 +15,19 @@
         <line num="11" count="1" type="stmt"/>
       </file>
       <file name="index.ts" path="C:\Users\MrPc\Desktop\ExamProject\Angular\functions\src\index.ts">
-        <metrics statements="10" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+        <metrics statements="8" coveredstatements="8" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="15" count="1" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
         <line num="22" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.products">
-      <metrics statements="30" coveredstatements="12" conditionals="0" coveredconditionals="0" methods="17" coveredmethods="6"/>
+      <metrics statements="23" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="13" coveredmethods="7"/>
       <file name="product.controller.firebase.ts" path="C:\Users\MrPc\Desktop\ExamProject\Angular\functions\src\products\product.controller.firebase.ts">
         <metrics statements="7" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>
         <line num="8" count="1" type="stmt"/>
@@ -41,26 +39,19 @@
         <line num="21" count="1" type="stmt"/>
       </file>
       <file name="product.repository.firebase.ts" path="C:\Users\MrPc\Desktop\ExamProject\Angular\functions\src\products\product.repository.firebase.ts">
-        <metrics statements="19" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="11" coveredmethods="2"/>
+        <metrics statements="12" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="7" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="7" count="1" type="stmt"/>
-        <line num="11" count="0" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
         <line num="12" count="0" type="stmt"/>
-        <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="23" count="0" type="stmt"/>
-        <line num="27" count="0" type="stmt"/>
-        <line num="32" count="1" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
         <line num="33" count="1" type="stmt"/>
-        <line num="34" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
-        <line num="37" count="0" type="stmt"/>
-        <line num="38" count="0" type="stmt"/>
-        <line num="39" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="1" type="stmt"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
       </file>
       <file name="product.service.ts" path="C:\Users\MrPc\Desktop\ExamProject\Angular\functions\src\products\product.service.ts">
         <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="2"/>

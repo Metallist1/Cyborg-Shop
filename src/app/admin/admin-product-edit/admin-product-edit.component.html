@@ -10,6 +10,46 @@
             Title is required.
           </div>
         </div>
+        <label class="col-md-4">Description</label>
+        <input type="title" class="form-control" formControlName="desc" #desc/>
+        <div *ngIf="productForm.controls['desc'].invalid && (productForm.controls['desc'].dirty || productForm.controls['desc'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="productForm.controls['desc'].errors.required">
+            Description is required.
+          </div>
+        </div>
+        <label class="col-md-4">Cost</label>
+        <input type="title" class="form-control" formControlName="cost" #cost/>
+        <div *ngIf="productForm.controls['cost'].invalid && (productForm.controls['cost'].dirty || productForm.controls['cost'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="productForm.controls['cost'].errors.required">
+            Cost is required.
+          </div>
+        </div>
+        <label class="col-md-4">InStock</label>
+        <input type="title" class="form-control" formControlName="inStock" #inStock/>
+        <div *ngIf="productForm.controls['inStock'].invalid && (productForm.controls['inStock'].dirty || productForm.controls['inStock'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="productForm.controls['inStock'].errors.required">
+            InStock is required.
+          </div>
+        </div>
+        <label class="col-md-4">Estimated Shipping</label>
+        <input type="title" class="form-control" formControlName="estimatedShipping" #estimatedShipping/>
+        <div *ngIf="productForm.controls['estimatedShipping'].invalid && (productForm.controls['estimatedShipping'].dirty || productForm.controls['estimatedShipping'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="productForm.controls['estimatedShipping'].errors.required">
+            Estimated Shipping is required.
+          </div>
+        </div>
+        <label class="col-md-4">Image</label>
+        <input type="title" class="form-control" formControlName="img" #img/>
+        <div *ngIf="productForm.controls['img'].invalid && (productForm.controls['img'].dirty || productForm.controls['img'].touched)"
+             class="alert alert-danger">
+          <div *ngIf="productForm.controls['img'].errors.required">
+            Image is required.
+          </div>
+        </div>
       </div>
       <div class="form-group">
         <button type="submit"

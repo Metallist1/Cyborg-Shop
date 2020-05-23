@@ -48,7 +48,7 @@ import {CartState} from './shared/cart-actions/cart.state';
     developmentMode: !environment.production
   }),
     NgxsStoragePluginModule.forRoot({
-      key: ['auth',  'product']
+      key: ['auth', 'cart']
     }),
     BrowserModule,
     AppRoutingModule,

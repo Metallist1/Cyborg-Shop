@@ -154,13 +154,16 @@ export class CartState {
   }
 
   private getTotalCost(allProducts: Product[]) {
-    const totalListOfProducts = [];
-    allProducts.forEach(childObj => {
-      for (let i = 0; i < childObj.count; i++) {
-        totalListOfProducts.push(childObj);
-      }
+    let realSum = 0;
+
+    const distinctThings = allProducts.filter(
+      (thing, i, arr) => arr.findIndex(t => t.uid === thing.uid) === i
+    );
+
+    distinctThings.forEach(childObj => {
+        realSum = realSum + (childObj.cost * childObj.count);
+        console.log("Real sum " + realSum + "cost " + childObj.cost +"Count" + childObj.count + "Equals " + (childObj.cost * childObj.count) );
     });
-    const sum = totalListOfProducts.map(o => o.cost).reduce((a, c) => a + c);
-    return sum;
+    return realSum;
   }
 }

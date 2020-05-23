@@ -12,11 +12,11 @@ admin.initializeApp({
 })
 
 //When you buy a product. Scroll trough the list and countdown all the diffrent products ordered
-export const buyProduct = functions.firestore
+/*export const buyProduct = functions.firestore
   .document('orders/{orderId}')
   .onCreate((snap, context) => {
     return dependencyFactory.getProductController().buyProduct(snap, context);
-  });
+  });*/
 
 //Rename one Product will update the Product in all other Documents
 export const renameProduct =  functions.firestore
