@@ -31,7 +31,7 @@ export class CartViewComponent implements OnInit {
         (data) => {
           let productCost = 0;
           data.forEach(childObj => {
-            productCost = productCost + childObj.totalCost;
+            productCost = productCost + Number(childObj.totalCost);
           });
           this.allProductCost = '' + productCost ;
           productCost = productCost + 10;
@@ -40,16 +40,6 @@ export class CartViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.Products.subscribe(
-        (data) => {
-          let productCost = 0;
-          data.forEach(childObj => {
-            productCost = productCost + childObj.totalCost;
-          });
-          this.allProductCost = '' + productCost ;
-          productCost = productCost + 10;
-          this.allProductCostAfterShipping = '' + productCost;
-        });
   }
   removeItem(product: Product) {
     this.store.dispatch(new RemoveFromCart(product));

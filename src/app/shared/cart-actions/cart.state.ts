@@ -21,7 +21,6 @@ export class CartStateModel {
 })
 @Injectable()
 export class CartState {
- shippingCost: 10;
   constructor(private cartService: CartService) {
   }
 
@@ -50,7 +49,7 @@ export class CartState {
         const copiedArray = JSON.parse(JSON.stringify(productList));
         const newProduct = copiedArray[productIndex];
         newProduct.count++;
-        newProduct.totalCost = newProduct.totalCost + newProduct.cost;
+        newProduct.totalCost = newProduct.count * newProduct.cost;
         if (newProduct.count <= newProduct.inStock) {
           copiedArray[productIndex] = newProduct;
 
@@ -164,6 +163,6 @@ export class CartState {
     distinctThings.forEach(childObj => {
         realSum = realSum + (childObj.cost * childObj.count);
     });
-    return realSum + this.shippingCost;
+    return realSum;
   }
 }

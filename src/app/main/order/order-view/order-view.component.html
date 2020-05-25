@@ -1,17 +1,78 @@
-<div class="col">
-  <app-main-nav></app-main-nav>
-  <div *ngIf="realOrder">
-    <div>ORDER :</div>
-    <div>UserID :{{ realOrder.userID }}</div>
-    <div>TotalCost :{{ realOrder.totalCost }}</div>
-    <div>Status :{{ realOrder.status }}</div>
-    <div>EstimatedShippingTime :{{ realOrder.estimatedShippingTime }}</div>
-    <div>Shipping ID :{{ realOrder.shippingID }}</div>
-    <div>PRODUCTS :</div>
-    <div *ngFor="let product of Products | async">
-      <div>Product name :{{ product.name }}</div>
-      <div>Product cost :{{ product.cost }}</div>
-      <div>Product count :{{ product.count }}</div>
+<app-main-nav></app-main-nav>
+<div id="invoice">
+  <div class="invoice overflow-auto">
+    <div style="min-width: 600px">
+      <header>
+        <div class="row">
+          <div class="col">
+            <a target="_blank"> Cyborg Part Shop </a>
+          </div>
+          <div class="col company-details">
+            <h2 class="name">
+              <a target="_blank">
+                Nedas Surkus
+              </a>
+            </h2>
+            <div>Esbjerg, EASV</div>
+            <div>+45555555</div>
+            <div>nedassurkus@gmail.com</div>
+          </div>
+        </div>
+      </header>
+      <main>
+        <div class="row contacts">
+          <div class="col invoice-to">
+            <div class="text-gray-light">ORDER MADE TO:</div>
+            <h2 class="to">{{currentU.name}}</h2>
+            <div class="address">Delivery Address 123</div>
+            <div class="email"><a>{{currentU.email}}</a></div>
+          </div>
+          <div class="col invoice-details">
+            <h1 class="invoice-id">Shipping ID:{{realOrder.shippingID}}</h1>
+            <div class="date">Estimated time to ship: {{realOrder.estimatedShippingTime}} Days</div>
+          </div>
+        </div>
+        <table border="0" cellspacing="0" cellpadding="0">
+          <thead>
+          <tr>
+            <th class="text-left">ID</th>
+            <th class="text-right">Item</th>
+            <th class="text-right">Quantity</th>
+            <th class="text-right">Unit Cost</th>
+            <th class="text-right">Total</th>
+          </tr>
+          </thead>
+          <tbody *ngFor="let product of Products | async">
+          <tr>
+            <td>{{ product.uid }}</td>
+            <td class="text-right">{{ product.name }}</td>
+            <td class="text-right">{{ product.count }}</td>
+            <td class="text-right">{{ product.cost }} €</td>
+            <td class="text-right">{{ product.totalCost }} €</td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">SUBTOTAL</td>
+            <td>{{orderTotal}} €</td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">Shipping </td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td colspan="2"></td>
+            <td colspan="2">GRAND TOTAL</td>
+            <td>{{orderTotalAfterShipping}} €</td>
+          </tr>
+          </tfoot>
+        </table>
+        <div class="thanks">Thank you!</div>
+      </main>
     </div>
+    <!--DO NOT DELETE THIS div. IT is responsible for showing footer always at the bottom-->
+    <div></div>
   </div>
 </div>
