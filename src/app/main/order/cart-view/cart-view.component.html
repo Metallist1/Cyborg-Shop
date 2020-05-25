@@ -1,15 +1,77 @@
 <app-main-nav></app-main-nav>
-<div class="main">
-  <div class="products" *ngIf="Products">
-  <div *ngFor="let product of Products | async">
-    <div>{{ product.name }}</div>
-    <div>{{ product.cost }}</div>
-    <div>{{ product.count }}</div>
-    <a class="nav-item nav-link" (click)="addToStock(product)">Add To Stock</a>
-    <a class="nav-item nav-link" (click)="removeFromStock(product)">Remove From Stock</a>
-    <a class="nav-item nav-link" (click)="removeItem(product)">Remove from cart</a>
+<div class="main-body">
+  <div class="container mb-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col"> </th>
+              <th scope="col">Product</th>
+              <th scope="col" class="text-center">Quantity</th>
+              <th ></th>
+              <th ></th>
+              <th scope="col" class="text-right">Price</th>
+              <th> </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let product of Products | async">
+              <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+              <td>{{product.name}}</td>
+              <td>{{ product.count }}
+              </td>
+              <td>
+                <a class="nav-item nav-link" (click)="addToStock(product)">+</a>
+              </td>
+              <td>
+                <a class="nav-item nav-link" (click)="removeFromStock(product)">-</a>
+              </td>
+              <td class="text-right">{{ product.totalCost }} €</td>
+              <td class="text-right"><button class="btn btn-sm btn-danger" (click)="removeItem(product)"><i class="fa fa-trash" ></i> Delete </button> </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td ></td>
+              <td ></td>
+              <td></td>
+              <td></td>
+              <td>Sub-Total</td>
+              <td class="text-right">{{allProductCost}} €</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td ></td>
+              <td ></td>
+              <td></td>
+              <td></td>
+              <td>Shipping</td>
+              <td class="text-right">10 €</td>
+            </tr>
+            <tr>
+              <td ></td>
+              <td ></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td><strong>Total</strong></td>
+              <td class="text-right"><strong>{{allProductCostAfterShipping}} €</strong></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="col mb-2">
+        <div class="row">
+          <div class="col-sm-12  col-md-6">
+            <button class="btn btn-block btn-light" routerLink="/">Continue Shopping</button>
+          </div>
+          <div class="col-sm-12 col-md-6 text-right">
+            <button class="btn btn-lg btn-block btn-success text-uppercase" (click)="placeOrder()">Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <a class="nav-item nav-link" (click)="placeOrder()">Place Order</a>
 </div>
-</div>
-

@@ -58,7 +58,7 @@ describe('index.ts tests', () => {
       admin.firestore().doc(`/orders/TestOrder`).collection(`productList`)
         .doc('TestBroughtProduct').get().then(data => {
           expect(data.data()).toStrictEqual(tempOrder);
-         });
+         }).catch(error =>{console.log(error);});
     });
   });
 });

@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "web-dev-exam-71d64"
+  },
+  "targets": {
+    "web-dev-exam-71d64": {
+      "hosting": {
+        "Angular": [
+          "web-dev-exam-71d64"
+        ]
+      }
+    }
   }
 }

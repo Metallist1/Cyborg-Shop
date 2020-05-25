@@ -21,7 +21,7 @@ export class CartStateModel {
 })
 @Injectable()
 export class CartState {
-
+ shippingCost: 10;
   constructor(private cartService: CartService) {
   }
 
@@ -50,6 +50,7 @@ export class CartState {
         const copiedArray = JSON.parse(JSON.stringify(productList));
         const newProduct = copiedArray[productIndex];
         newProduct.count++;
+        newProduct.totalCost = newProduct.totalCost + newProduct.cost;
         if (newProduct.count <= newProduct.inStock) {
           copiedArray[productIndex] = newProduct;
 
@@ -69,6 +70,7 @@ export class CartState {
       const copiedArray = JSON.parse(JSON.stringify(productList));
       const newProduct = copiedArray[productIndex];
       newProduct.count++;
+      newProduct.totalCost = newProduct.count * newProduct.cost;
       if (newProduct.count <= newProduct.inStock) {
       copiedArray[productIndex] = newProduct;
 
@@ -89,6 +91,7 @@ export class CartState {
       const copiedArray = JSON.parse(JSON.stringify(productList));
       const newProduct = copiedArray[productIndex];
       newProduct.count--;
+      newProduct.totalCost = newProduct.totalCost - newProduct.cost;
       if (newProduct.count > 0) {
         copiedArray[productIndex] = newProduct;
 
@@ -110,8 +113,6 @@ export class CartState {
     });
   }
 
-
-  // TODO
   @Action(CreateOrder)
   createOrder({getState, setState, patchState}: StateContext<CartStateModel>, {payload}: CreateOrder) {
     const state = getState();
@@ -162,8 +163,7 @@ export class CartState {
 
     distinctThings.forEach(childObj => {
         realSum = realSum + (childObj.cost * childObj.count);
-        console.log("Real sum " + realSum + "cost " + childObj.cost +"Count" + childObj.count + "Equals " + (childObj.cost * childObj.count) );
     });
-    return realSum;
+    return realSum + this.shippingCost;
   }
 }

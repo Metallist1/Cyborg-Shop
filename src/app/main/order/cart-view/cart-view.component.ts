@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {ProductState} from '../../../shared/product-actions/product.state';
 import {Observable} from 'rxjs';
@@ -19,22 +19,44 @@ export class CartViewComponent implements OnInit {
   @Select(AuthState.userUID) userID: Observable<string>;
 
   realUserID: string;
+
+  allProductCost: string;
+  allProductCostAfterShipping: string;
   constructor(private store: Store, private router: Router) {
     this.userID.subscribe(
       (data) => {
         this.realUserID = data;
       });
+    this.Products.subscribe(
+        (data) => {
+          let productCost = 0;
+          data.forEach(childObj => {
+            productCost = productCost + childObj.totalCost;
+          });
+          this.allProductCost = '' + productCost ;
+          productCost = productCost + 10;
+          this.allProductCostAfterShipping = '' + productCost;
+        });
   }
 
   ngOnInit() {
+    this.Products.subscribe(
+        (data) => {
+          let productCost = 0;
+          data.forEach(childObj => {
+            productCost = productCost + childObj.totalCost;
+          });
+          this.allProductCost = '' + productCost ;
+          productCost = productCost + 10;
+          this.allProductCostAfterShipping = '' + productCost;
+        });
   }
-
   removeItem(product: Product) {
     this.store.dispatch(new RemoveFromCart(product));
   }
 
   placeOrder() {
-    if(this.realUserID === undefined){
+    if (this.realUserID === undefined){
       this.realUserID = '-1';
     }
     this.store.dispatch(new CreateOrder(this.realUserID));

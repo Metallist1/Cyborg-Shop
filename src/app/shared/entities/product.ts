@@ -7,4 +7,5 @@ export interface Product {
   cost: number;
   img: string;
   count?: number;
+  totalCost: number;
 }

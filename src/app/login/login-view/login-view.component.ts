@@ -29,21 +29,4 @@ export class LoginViewComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-  loginUsingGoogle() {
-    this.store.dispatch(new LoginWithGoogle()).pipe()
-      .subscribe(
-        data => {
-          this.store.dispatch(new ClearCart());
-          this.router.navigate(['/']);
-        });
-  }
-  loginUsingFacebook() {
-    this.store.dispatch(new LoginWithFaceBook()).pipe()
-      .subscribe(
-        data => {
-          this.store.dispatch(new ClearCart());
-          this.router.navigate(['/']);
-        });
-  }
 }

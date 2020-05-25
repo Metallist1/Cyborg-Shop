@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {LoginWithEmail} from '../../auth/shared/auth.action';
+import {LoginWithEmail, LoginWithFaceBook, LoginWithGoogle} from '../../auth/shared/auth.action';
 import {first} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
 import {ClearCart} from '../../shared/cart-actions/cart.actions';
@@ -56,6 +56,23 @@ export class LoginEmailComponent implements OnInit {
         },
         error => {
           this.loading = false;
+        });
+  }
+
+  loginUsingGoogle() {
+    this.store.dispatch(new LoginWithGoogle()).pipe()
+      .subscribe(
+        data => {
+          this.store.dispatch(new ClearCart());
+          this.router.navigate(['/']);
+        });
+  }
+  loginUsingFacebook() {
+    this.store.dispatch(new LoginWithFaceBook()).pipe()
+      .subscribe(
+        data => {
+          this.store.dispatch(new ClearCart());
+          this.router.navigate(['/']);
         });
   }
 }

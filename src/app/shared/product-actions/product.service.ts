@@ -36,6 +36,8 @@ export class ProductService {
             // @ts-ignore
             const cost = a.payload.doc.data().cost;
             // @ts-ignore
+            const totalCost = a.payload.doc.data().cost;
+            // @ts-ignore
             const description = a.payload.doc.data().description;
             // @ts-ignore
             const estimatedShipping = a.payload.doc.data().estimatedShipping;
@@ -44,8 +46,7 @@ export class ProductService {
             // @ts-ignore
             const img = a.payload.doc.data().img;
             const uid = a.payload.doc.id;
-
-            return {uid, name, cost, description, estimatedShipping, inStock, img, count : 1} as Product;
+            return {uid, name, cost, description, estimatedShipping, inStock, img, count : 1, totalCost} as Product;
            });
         }
       ));
