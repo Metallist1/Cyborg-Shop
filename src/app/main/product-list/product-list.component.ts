@@ -21,12 +21,12 @@ export class ProductListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'default' ));
+    this.store.dispatch(new ReadProducts(this.tablename, 8, 'name', 'dec', 'default' ));
   }
 
   next() {
     this.page++;
-    this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'next'));
+    this.store.dispatch(new ReadProducts(this.tablename, 8, 'name', 'dec', 'next'));
     this.shouldStop.subscribe(data => {
         this.isFinished = data;
       }
@@ -36,7 +36,7 @@ export class ProductListComponent implements OnInit {
   before() {
     if (this.page > 1) {
       this.page--;
-      this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'back'));
+      this.store.dispatch(new ReadProducts(this.tablename, 8, 'name', 'dec', 'back'));
     }
     this.shouldStop.subscribe(data => {
         this.isFinished = data;

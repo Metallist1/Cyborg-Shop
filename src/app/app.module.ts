@@ -28,6 +28,7 @@ import { MainNavComponent } from './main/main-nav/main-nav.component';
 import { CartViewComponent } from './main/order/cart-view/cart-view.component';
 import { OrderViewComponent } from './main/order/order-view/order-view.component';
 import {CartState} from './shared/cart-actions/cart.state';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +54,7 @@ import {CartState} from './shared/cart-actions/cart.state';
     BrowserModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFirestoreModule, ReactiveFormsModule, AngularFireAuthModule
+    AngularFirestoreModule, ReactiveFormsModule, AngularFireAuthModule, FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,6 +7,8 @@ import {first} from 'rxjs/operators';
 import {Store} from '@ngxs/store';
 import {ClearCart} from '../../shared/cart-actions/cart.actions';
 
+import {  faFacebook, faGoogle} from '@fortawesome/free-brands-svg-icons';
+import {  faLock, faUser} from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-login-email',
   templateUrl: './login-email.component.html',
@@ -17,6 +19,11 @@ export class LoginEmailComponent implements OnInit {
   loading = false;
   submitted = false;
 
+  // Icons
+  faFacebook = faFacebook;
+  faGoogle = faGoogle;
+  faLock = faLock;
+  faUser = faUser;
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,

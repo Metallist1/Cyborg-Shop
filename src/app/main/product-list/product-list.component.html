@@ -1,14 +1,24 @@
-<div class="main">
-  <div class="row" *ngIf="Products">
-    <div class="col-sm-4 col-md-3 col-lg-2 product" *ngFor="let product of Products | async;  index as i" (click)="showDetails(i)">
-      <div>{{ product.name }}</div>
-      <div>{{ product.cost }}</div>
-    </div>
+<div class="container">
+  <div class="main">
+  <div class="row">
+    <div class="col-md-3 col-sm-6" *ngFor="let product of Products | async;  index as i" (click)="showDetails(i)">
+        <div class="product-grid">
+          <div class="product-image">
+            <a>
+              <img class="pic-1" src="{{product.img}}">
+              <img class="pic-2" src="http://bestjquery.com/tutorial/product-grid/demo9/images/img-2.jpg">
+            </a>
+          </div>
+          <div class="product-content">
+            <h3 class="title"><a >{{product.name}}</a></h3>
+            <div class="price">{{product.cost}} €</div>
+            <a class="add-to-cart">Add To Cart</a>
+          </div>
+        </div>
+      </div>
   </div>
-  <div class="pageControll">
-    <button *ngIf="page > 1" type="button" class="btn btn-primary" (click)="before()">Back</button>
-    <label class="col-md-4">Page: {{page}}</label>
-    <button *ngIf="!isFinished"  type="button" class="btn btn-primary" (click)="next()">Front</button>
-  </div>
-
+    <button class="btn btn-primary leftLst" (click)="before()"><</button>
+    <button class="btn btn-primary rightLst" (click)="next()">></button>
 </div>
+</div>
+<hr>

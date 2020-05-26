@@ -8,13 +8,14 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbar">
       <ul class="navbar-nav m-auto">
         <li class="nav-item m-auto">
-          <a class="nav-link" routerLink="/">Home</a>
+          <a class="nav-link" routerLink="/"  [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:
+true}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/admin">Admin - Only For Test</a>
+          <a class="nav-link" routerLink="/admin" [routerLinkActive]="['active']">Admin - Only For Test</a>
         </li>
-        <li class="nav-item active">
-          <a class="nav-link" routerLink="/cart">Cart <span class="sr-only">(current)</span></a>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/cart" [routerLinkActive]="['active']">Cart <span class="sr-only">(current)</span></a>
         </li>
       </ul>
 
@@ -34,7 +35,7 @@
       </ng-template>
       <ng-template #loggedOut>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/login">Login</a>
+          <a class="nav-link" routerLink="/login" [routerLinkActive]="['active']" >Login</a>
         </li>
       </ng-template>
       </ul>
