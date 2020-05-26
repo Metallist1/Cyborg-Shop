@@ -29,7 +29,12 @@ export class AdminProductEditComponent implements OnInit, OnDestroy {
         if (product) {
           this.productForm.patchValue({
             uid: product.uid,
-            name: product.name
+            name: product.name,
+            cost: product.cost,
+            inStock: product.inStock,
+            estimatedShipping: product.estimatedShipping,
+            desc: product.description,
+            img: product.img
           });
           this.editProduct = true;
         } else {
@@ -41,6 +46,7 @@ export class AdminProductEditComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.productForm = this.fb.group({
+      uid: [''] ,
       name: ['', Validators.required],
       cost: ['', Validators.required],
       inStock: ['', Validators.required],
@@ -50,7 +56,13 @@ export class AdminProductEditComponent implements OnInit, OnDestroy {
     });
   }
   onSubmit() {
-    if (this.productForm.value.name !== '') {
+    if (this.editProduct && this.productForm.value.uid !== '' && this.productForm.value.name !== '') {
+      this.formSubscription.add(
+        this.store.dispatch(new UpdateExistingProduct(this.productForm.value)).subscribe(() => {
+          this.clearForm();
+        })
+      );
+    } else if (this.productForm.value.uid !== '' && this.productForm.value.name !== '') {
       const modal = {
         name: this.productForm.value.name,
         cost: this.productForm.value.cost,

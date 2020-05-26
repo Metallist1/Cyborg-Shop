@@ -21,12 +21,12 @@ export class AdminProductSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new ReadProducts(this.tablename, 20, 'name', 'dec', 'default' ));
+    this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'default' ));
   }
 
   next() {
     this.page++;
-    this.store.dispatch(new ReadProducts(this.tablename, 20, 'name', 'dec', 'next' ));
+    this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'next' ));
     this.Products.subscribe(data => {
       if (data.length < 4) {
         this.isFinished = true;
@@ -37,7 +37,7 @@ export class AdminProductSelectComponent implements OnInit {
   before() {
     if (this.page > 0) {
       this.page--;
-      this.store.dispatch(new ReadProducts(this.tablename, 20, 'name', 'dec', 'back' ));
+      this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'back' ));
       this.isFinished = false;
     }
   }
