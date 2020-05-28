@@ -1,9 +1,9 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {ProductState} from '../../shared/product-actions/product.state';
 import {Observable} from 'rxjs';
 import {Product} from '../../shared/entities/product';
-import {DeleteProduct, ReadProducts, SetSelectedProduct} from '../../shared/product-actions/product.action';
+import {ReadProducts, SetSelectedProduct} from '../../shared/product-actions/product.action';
 import {Router} from '@angular/router';
 
 @Component({
@@ -15,18 +15,18 @@ export class ProductListComponent implements OnInit {
   @Select(ProductState.getALLProduct) Products: Observable<Product[]>;
   @Select(ProductState.getIsFinished) shouldStop: Observable<boolean>;
   page = 1;
-  tablename = 'products';
+  tableName = 'products';
   isFinished = false;
   constructor(private store: Store, private router: Router) {
   }
 
   ngOnInit() {
-    this.store.dispatch(new ReadProducts(this.tablename, 8, 'name', 'dec', 'default' ));
+    this.store.dispatch(new ReadProducts(this.tableName, 8, 'name', 'desc', 'default' ));
   }
 
   next() {
     this.page++;
-    this.store.dispatch(new ReadProducts(this.tablename, 8, 'name', 'dec', 'next'));
+    this.store.dispatch(new ReadProducts(this.tableName, 8, 'name', 'desc', 'next'));
     this.shouldStop.subscribe(data => {
         this.isFinished = data;
       }
@@ -36,7 +36,7 @@ export class ProductListComponent implements OnInit {
   before() {
     if (this.page > 1) {
       this.page--;
-      this.store.dispatch(new ReadProducts(this.tablename, 8, 'name', 'dec', 'back'));
+      this.store.dispatch(new ReadProducts(this.tableName, 8, 'name', 'desc', 'back'));
     }
     this.shouldStop.subscribe(data => {
         this.isFinished = data;

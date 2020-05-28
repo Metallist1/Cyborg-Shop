@@ -19,6 +19,7 @@ export class CartViewComponent implements OnInit {
   @Select(AuthState.userUID) userID: Observable<string>;
 
   realUserID: string;
+  productLength: number;
 
   allProductCost: string;
   allProductCostAfterShipping: string;
@@ -29,6 +30,7 @@ export class CartViewComponent implements OnInit {
       });
     this.Products.subscribe(
         (data) => {
+          this.productLength = data.length;
           let productCost = 0;
           data.forEach(childObj => {
             productCost = productCost + Number(childObj.totalCost);

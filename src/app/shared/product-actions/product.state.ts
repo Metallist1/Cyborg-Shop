@@ -20,6 +20,7 @@ export class ProductStateModel {
     shouldPaginationStop: false
   }
 })
+
 @Injectable()
 export class ProductState {
 
@@ -42,13 +43,15 @@ export class ProductState {
   }
 
   @Action(ReadProducts)
-  getProducts({getState, setState}: StateContext<ProductStateModel>, {tablename, numberOfElements,
+  getProducts({getState, setState}: StateContext<ProductStateModel>, {tableName, numberOfElements,
     orderByType, order, type}: ReadProducts) {
-    return this.productService.ReadProductsFromBase(tablename, numberOfElements, orderByType, order, type).pipe(tap((result) => {
+    return this.productService.ReadProductsFromBase(tableName, numberOfElements, orderByType, order, type).pipe(tap((result) => {
       const state = getState();
+
+      // This is a signal to the controller to disable / delete next button
       let isPaginationBad = false;
 
-      if (result.length < numberOfElements){
+      if (result.length < numberOfElements) {
         isPaginationBad = true;
       }
 
@@ -59,6 +62,7 @@ export class ProductState {
       });
     }));
   }
+
   @Action(WriteNewProduct)
   WriteProducts({getState, patchState}: StateContext<ProductStateModel>, {payload}: WriteNewProduct) {
     console.log(payload);

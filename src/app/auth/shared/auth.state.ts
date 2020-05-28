@@ -27,14 +27,17 @@ export class AuthState {
   static loggedInUser(state: AuthStateModel) {
     return state.loggedInUser;
   }
+
   @Selector()
   static loggedInUserName(state: AuthStateModel) {
     return state.userName;
   }
+
   @Selector()
   static userUID(state: AuthStateModel) {
     return state.userUID;
   }
+
   @Action(LoginWithGoogle)
   loginWithGoogle({getState, setState}: StateContext<AuthStateModel>) {
     return this.authService.loginGoogle().then((result) => {
@@ -48,6 +51,7 @@ export class AuthState {
         }
       );
   }
+
   @Action(LoginWithEmail)
   loginWithEmail({getState, setState}: StateContext<AuthStateModel>, {username, password}: LoginWithEmail) {
     return this.authService.loginWithEmail(username, password).then((result) => {
@@ -61,6 +65,7 @@ export class AuthState {
       }
     );
   }
+
   @Action(LoginWithFaceBook)
   loginWithFacebook({getState, setState}: StateContext<AuthStateModel>) {
     return this.authService.loginWithFacebook().then((result) => {

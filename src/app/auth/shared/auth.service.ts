@@ -1,10 +1,9 @@
 
-import {AuUser} from '../entities/user';
+import { AuUser } from '../entities/user';
 
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 
-import {auth, User} from 'firebase/app';
+import { User } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import {
   AngularFirestore,
@@ -20,12 +19,9 @@ import FacebookAuthProvider = firebase.auth.FacebookAuthProvider;
 })
 export class AuthService {
 
-  usr: AuUser;
-
   constructor(
     private afAuth: AngularFireAuth,
-    private afs: AngularFirestore,
-    private router: Router
+    private afs: AngularFirestore
   ) {
   }
 
@@ -84,7 +80,4 @@ export class AuthService {
     return data as User;
   }
 
-  private getUserData(uid: string) {
-    return this.afs.doc(`users/${uid}`).snapshotChanges();
-  }
 }

@@ -71,13 +71,13 @@ export class CartState {
       newProduct.count++;
       newProduct.totalCost = newProduct.count * newProduct.cost;
       if (newProduct.count <= newProduct.inStock) {
-      copiedArray[productIndex] = newProduct;
+        copiedArray[productIndex] = newProduct;
 
-      setState({
-        ...state,
-        products: copiedArray,
-      });
-    }
+        setState({
+          ...state,
+          products: copiedArray,
+        });
+      }
     }
   }
 
@@ -116,13 +116,15 @@ export class CartState {
   createOrder({getState, setState, patchState}: StateContext<CartStateModel>, {payload}: CreateOrder) {
     const state = getState();
     const newOrder = this.processOrder(payload, state.products) as Order;
-    this.cartService.createOrder(newOrder, state.products);
-    setState({
-      ...state,
-      madeOrder: newOrder,
-      productsInOrder: state.products,
-      products: [],
-    });
+    if (state.products.length !== 0) {
+      this.cartService.createOrder(newOrder, state.products);
+      setState({
+        ...state,
+        madeOrder: newOrder,
+        productsInOrder: state.products,
+        products: [],
+      });
+    }
   }
 
   @Action(ClearCart)

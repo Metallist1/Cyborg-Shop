@@ -9,13 +9,12 @@ import { AngularFirestore } from '@angular/fire/firestore';
 export class ProductService {
   constructor(private firestore: AngularFirestore) {}
 
-
   // pagination
   ref: any;
   first: any;
   last: any;
 
-  ReadProductsFromBase(tablename: string, numberOfObjects: number, orderBy: string, order: string, type: string) {
+  ReadProductsFromBase(tableName: string, numberOfObjects: number, orderBy: string, order: string, type: string) {
     if (type === 'next') {
       this.ref = this.next( numberOfObjects, orderBy, order);
     } else if (type === 'back') {
@@ -24,7 +23,7 @@ export class ProductService {
       this.ref = this.default(numberOfObjects, orderBy, order);
     }
 
-    const queryExecuted =  this.firestore.collection(tablename, this.ref).snapshotChanges();
+    const queryExecuted =  this.firestore.collection(tableName, this.ref).snapshotChanges();
     // Map result set
     return queryExecuted.pipe(
       map (courses => {
@@ -45,25 +44,34 @@ export class ProductService {
             const inStock = a.payload.doc.data().inStock;
             // @ts-ignore
             const img = a.payload.doc.data().img;
+            // @ts-ignore
+            const img2 = a.payload.doc.data().img2;
+            // @ts-ignore
+            const img3 = a.payload.doc.data().img3;
+            // @ts-ignore
+            const img4 = a.payload.doc.data().img4;
+            // @ts-ignore
+            const img5 = a.payload.doc.data().img5;
             const uid = a.payload.doc.id;
-            return {uid, name, cost, description, estimatedShipping, inStock, img, count : 1, totalCost} as Product;
+            return {uid, name, cost, description, estimatedShipping, inStock, img, img2, img3, img4, img5, count : 1, totalCost} as Product;
            });
         }
       ));
   }
 
+  private default(numberOfObjects: number, orderBy: string, order: string) {
+    return ref => ref.orderBy(orderBy, order)
+      .limit(numberOfObjects);
+  }
+
   private next(numberOfObjects: number, orderBy: string, order: string) {
-    return  ref => ref.orderBy(orderBy, 'desc')
+    return  ref => ref.orderBy(orderBy, order)
       .startAfter(this.last)
       .limit(numberOfObjects);
   }
 
-  private default(numberOfObjects: number, orderBy: string, order: string) {
-    return ref => ref.orderBy(orderBy, 'desc')
-      .limit(numberOfObjects);
-  }
   private before(numberOfObjects: number, orderBy: string, order: string) {
-    return ref => ref.orderBy(orderBy, 'desc')
+    return ref => ref.orderBy(orderBy, order)
       .endBefore(this.first)
       .limitToLast(numberOfObjects);
   }

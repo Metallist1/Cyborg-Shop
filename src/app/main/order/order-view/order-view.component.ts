@@ -24,13 +24,15 @@ export class OrderViewComponent implements OnInit {
   orderTotal: string;
   orderTotalAfterShipping: string;
 
-  constructor(private store: Store, private router: Router) {
-
+  constructor(private router: Router) {
   }
 
   ngOnInit() {
     this.order.subscribe(
       (data) => {
+        if (!data) {
+          this.router.navigate(['/']);
+        }
         this.realOrder = data;
         this.orderTotal = '' + data.totalCost;
         const newAmount = data.totalCost + 10 ;

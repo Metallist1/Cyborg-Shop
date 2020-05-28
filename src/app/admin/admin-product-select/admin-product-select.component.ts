@@ -14,21 +14,21 @@ export class AdminProductSelectComponent implements OnInit {
 
   @Select(ProductState.getALLProduct) Products: Observable<Product[]>;
   page = 0;
-  tablename = 'products';
+  tableName = 'products';
   isFinished = false;
 
   constructor(private store: Store) {
   }
 
   ngOnInit() {
-    this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'default' ));
+    this.store.dispatch(new ReadProducts(this.tableName, 10, 'name', 'desc', 'default' ));
   }
 
   next() {
     this.page++;
-    this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'next' ));
+    this.store.dispatch(new ReadProducts(this.tableName, 10, 'name', 'desc', 'next' ));
     this.Products.subscribe(data => {
-      if (data.length < 4) {
+      if (data.length < 10) {
         this.isFinished = true;
       }
     });
@@ -37,15 +37,15 @@ export class AdminProductSelectComponent implements OnInit {
   before() {
     if (this.page > 0) {
       this.page--;
-      this.store.dispatch(new ReadProducts(this.tablename, 10, 'name', 'dec', 'back' ));
+      this.store.dispatch(new ReadProducts(this.tableName, 10, 'name', 'desc', 'back' ));
       this.isFinished = false;
     }
   }
 
-
   deleteProduct(uid: string) {
     this.store.dispatch(new DeleteProduct(uid));
   }
+
   editTodo(payload: Product) {
     this.store.dispatch(new SetSelectedProduct(payload));
   }

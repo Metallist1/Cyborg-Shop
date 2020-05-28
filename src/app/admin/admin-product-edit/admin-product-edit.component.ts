@@ -34,7 +34,11 @@ export class AdminProductEditComponent implements OnInit, OnDestroy {
             inStock: product.inStock,
             estimatedShipping: product.estimatedShipping,
             desc: product.description,
-            img: product.img
+            img: product.img,
+            img2: product.img2,
+            img3: product.img3,
+            img4: product.img4,
+            img5: product.img5,
           });
           this.editProduct = true;
         } else {
@@ -51,10 +55,15 @@ export class AdminProductEditComponent implements OnInit, OnDestroy {
       cost: ['', Validators.required],
       inStock: ['', Validators.required],
       estimatedShipping: ['', Validators.required],
-      desc: ['', Validators.required],
-      img: ['', Validators.required]
+      description: ['', Validators.required],
+      img: ['', Validators.required],
+      img2: [''] ,
+      img3: [''] ,
+      img4: [''] ,
+      img5: [''] ,
     });
   }
+
   onSubmit() {
     if (this.editProduct && this.productForm.value.uid !== '' && this.productForm.value.name !== '') {
       this.formSubscription.add(
@@ -62,15 +71,20 @@ export class AdminProductEditComponent implements OnInit, OnDestroy {
           this.clearForm();
         })
       );
-    } else if (this.productForm.value.uid !== '' && this.productForm.value.name !== '') {
+    } else if ( this.productForm.value.name !== '') {
       const modal = {
         name: this.productForm.value.name,
         cost: this.productForm.value.cost,
         inStock: this.productForm.value.inStock,
         estimatedShipping: this.productForm.value.estimatedShipping,
-        description: this.productForm.value.desc,
+        description: this.productForm.value.description,
         img: this.productForm.value.img,
+        img2: this.productForm.value.img2,
+        img3: this.productForm.value.img3,
+        img4: this.productForm.value.img4,
+        img5: this.productForm.value.img5,
       } as Product;
+
       this.formSubscription.add(
         this.formSubscription = this.store.dispatch(new WriteNewProduct(modal)).subscribe(() => {
           this.clearForm();

@@ -18,9 +18,9 @@
             </thead>
             <tbody>
             <tr *ngFor="let product of Products | async">
-              <td><img src="https://dummyimage.com/50x50/55595c/fff" /> </td>
+              <td><img class="resizeImage" src="{{product.img}}" onError="this.src='https://i.ibb.co/K0B5Vwx/image-not-found-1038x576.jpg'" /> </td>
               <td>{{product.name}}</td>
-              <td>{{ product.count }}
+              <td>{{product.count}}
               </td>
               <td>
                 <a class="nav-item nav-link" (click)="addToStock(product)">+</a>
@@ -28,7 +28,7 @@
               <td>
                 <a class="nav-item nav-link" (click)="removeFromStock(product)">-</a>
               </td>
-              <td class="text-right">{{ product.totalCost }} €</td>
+              <td class="text-right">{{product.totalCost}} €</td>
               <td class="text-right"><button class="btn btn-sm btn-danger" (click)="removeItem(product)"><i class="fa fa-trash" ></i> Delete </button> </td>
             </tr>
             <tr>
@@ -68,7 +68,12 @@
             <button class="btn btn-block btn-light" routerLink="/">Continue Shopping</button>
           </div>
           <div class="col-sm-12 col-md-6 text-right">
-            <button class="btn btn-lg btn-block btn-success text-uppercase" (click)="placeOrder()">Checkout</button>
+            <ng-template [ngIf]="productLength != 0" [ngIfElse]="noProducts">
+              <button class="btn btn-lg btn-block btn-success text-uppercase" (click)="placeOrder()">Checkout</button>
+            </ng-template>
+            <ng-template #noProducts>
+              <button class="btn btn-lg btn-block btn-success text-uppercase disabled">Checkout</button>
+            </ng-template>
           </div>
         </div>
       </div>

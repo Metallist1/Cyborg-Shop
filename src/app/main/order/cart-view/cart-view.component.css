@@ -69,3 +69,8 @@ footer a {
   padding: 30px;
   margin: 50px;
 }
+
+.resizeImage{
+  width: 50px;
+  height: 50px;
+}
